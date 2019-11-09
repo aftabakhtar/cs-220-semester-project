@@ -43,9 +43,9 @@ create table flight_component(
     destination_loc int,
     foreign key (destination_loc) references location(location_id),
     time_start time,
-    time_end time
-    #captain int, foreign key (captain) references pilot(pilot_id),
-    #copilot int, foreign key (captain) references pilot(pilot_id),
+    time_end time,
+    captain int, foreign key (captain) references pilot(pilot_id),
+    copilot int, foreign key (captain) references pilot(pilot_id)
 );
 
 create table connections(
