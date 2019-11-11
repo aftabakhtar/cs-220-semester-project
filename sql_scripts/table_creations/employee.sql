@@ -23,3 +23,10 @@ create table cabin_crew(
     foreign key (employee_id) references employee(employee_id),
     foreign key (location_id) references employee(employee_id)
 );
+
+create table technician(
+    employee_id int,
+    location_id int,
+    foreign key (employee_id) references employee(employee_id),
+    foreign key (location_id) references employee(employee_id)
+);
