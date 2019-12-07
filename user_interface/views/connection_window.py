@@ -8,11 +8,6 @@ from PyQt5.QtWidgets import QMessageBox
 from user_interface.views.screen_2 import Ui_screen_2
 
 class Ui_connection_window(object):
-    # constructor method to set the text in csv file
-    def __init__(self):
-        self.credentials = csv_handling.read_credentials()
-        
-
     def setupUi(self, connection_window):
         connection_window.setObjectName("connection_window")
         connection_window.resize(290, 280)
@@ -75,9 +70,6 @@ class Ui_connection_window(object):
         self.retranslateUi(connection_window)
         QtCore.QMetaObject.connectSlotsByName(connection_window)
 
-        # attaching with button
-        self.login_button.clicked.connect(lambda: self.login_clicked())
-
     def retranslateUi(self, connection_window):
         _translate = QtCore.QCoreApplication.translate
         connection_window.setWindowTitle(_translate("connection_window", "Connection"))
@@ -89,62 +81,3 @@ class Ui_connection_window(object):
         self.database_label.setText(_translate("connection_window", "Database"))
         self.database_field.setText(_translate("connection_window", "flight_service"))
 
-    # method for filling in the credentials
-    def set_credentials(self):
-        # setting the text on the fields
-        self.username_field.setText(self.credentials[0])
-        self.password_field.setText(self.credentials[1])
-        self.host_field.setText(self.credentials[2])
-        self.database_field.setText(self.credentials[3])
-
-    # method for handling login button
-    def login_clicked(self):
-        conn = connection.connect(host=self.host_field.text(), user=self.username_field.text(), passwd=self.password_field.text(), db=self.database_field.text())
-        
-        # error handling
-        if conn is 1:
-            self.credentials = []
-            self.credentials.append(self.username_field.text())
-            self.credentials.append(self.password_field.text())
-            self.credentials.append(self.host_field.text())
-            self.credentials.append(self.database_field.text())
-            csv_handling.write_credentials(self.credentials)
-            self.show_popup("Success", "Connection was successfully established.", QMessageBox.Information)
-            
-            # Here we will setup second window as well as hide this window
-            # may be removed later
-            self.window = QtWidgets.QMainWindow()
-            self.ui = Ui_screen_2()
-            self.ui.setupUi2(self.window)
-            self.window.show()
-            
-
-
-        else:
-            self.show_popup("Error", "Error in establishing connection. Please make sure you have entered the right credentials.", QMessageBox.Critical)
-
-    # method to show popups
-    def show_popup(self, title, text, error_type):
-        msg = QMessageBox()
-        msg.setWindowTitle(title)
-        msg.setText(text)
-        msg.setIcon(error_type)
-        msg.setStandardButtons(QMessageBox.Ok)
-
-        display = msg.exec_()
-
-
-def show_window():
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    connection_window = QtWidgets.QMainWindow()
-    ui = Ui_connection_window()
-    ui.setupUi(connection_window)
-
-    # custom method call to set the text according to csv
-    ui.set_credentials()
-    
-    connection_window.show()
-    sys.exit(app.exec_())
-
-    
