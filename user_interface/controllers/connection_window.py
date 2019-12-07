@@ -1,6 +1,7 @@
 # imports
 from PyQt5 import QtCore, QtGui, QtWidgets
 from user_interface.helpers import csv_handling
+from user_interface.helpers import connection
 
 class Ui_connection_window(object):
     # constructor method to set the text in csv file
@@ -20,6 +21,7 @@ class Ui_connection_window(object):
         self.login_button = QtWidgets.QPushButton(self.centralwidget)
         self.login_button.setGeometry(QtCore.QRect(180, 230, 80, 25))
         self.login_button.setObjectName("login_button")
+        
 
         self.usernam_label = QtWidgets.QLabel(self.centralwidget)
         self.usernam_label.setGeometry(QtCore.QRect(30, 20, 61, 17))
@@ -69,6 +71,9 @@ class Ui_connection_window(object):
         self.retranslateUi(connection_window)
         QtCore.QMetaObject.connectSlotsByName(connection_window)
 
+        # attaching with button
+        self.login_button.clicked.connect(lambda: self.login_clicked())
+
     def retranslateUi(self, connection_window):
         _translate = QtCore.QCoreApplication.translate
         connection_window.setWindowTitle(_translate("connection_window", "Connection"))
@@ -88,6 +93,19 @@ class Ui_connection_window(object):
         self.host_field.setText(self.credentials[2])
         self.database_field.setText(self.credentials[3])
 
+    # method for handling login button
+    def login_clicked(self):
+        self.credentials = []
+        self.credentials.append(self.username_field.text())
+        self.credentials.append(self.password_field.text())
+        self.credentials.append(self.host_field.text())
+        self.credentials.append(self.database_field.text())
+        csv_handling.write_credentials(self.credentials)
+        conn = connection.connect(host=self.credentials[2], user=self.credentials[0], passwd=self.credentials[1], db=self.credentials[3])
+        
+        # error handling
+        if conn is 1:
+            
 
 def show_window():
     import sys
