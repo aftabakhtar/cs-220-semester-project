@@ -2,6 +2,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from user_interface.helpers import csv_handling
 from user_interface.helpers import connection
+from PyQt5.QtWidgets import QMessageBox
 
 class Ui_connection_window(object):
     # constructor method to set the text in csv file
@@ -95,17 +96,33 @@ class Ui_connection_window(object):
 
     # method for handling login button
     def login_clicked(self):
-        self.credentials = []
-        self.credentials.append(self.username_field.text())
-        self.credentials.append(self.password_field.text())
-        self.credentials.append(self.host_field.text())
-        self.credentials.append(self.database_field.text())
-        csv_handling.write_credentials(self.credentials)
-        conn = connection.connect(host=self.credentials[2], user=self.credentials[0], passwd=self.credentials[1], db=self.credentials[3])
+        conn = connection.connect(host=self.host_field.text(), user=self.username_field.text(), passwd=self.password_field.text(), db=self.database_field.text())
         
         # error handling
         if conn is 1:
+            self.credentials = []
+            self.credentials.append(self.username_field.text())
+            self.credentials.append(self.password_field.text())
+            self.credentials.append(self.host_field.text())
+            self.credentials.append(self.database_field.text())
+            csv_handling.write_credentials(self.credentials)
+            self.show_popup("Success", "Connection was successfully established.", QMessageBox.Information)
             
+            # Here we will setup second window as well as hide this window
+
+        else:
+            self.show_popup("Error", "Error in establishing connection. Please make sure you have entered the right credentials.", QMessageBox.Critical)
+
+    # method to show popups
+    def show_popup(self, title, text, error_type):
+        msg = QMessageBox()
+        msg.setWindowTitle(title)
+        msg.setText(text)
+        msg.setIcon(error_type)
+        msg.setStandardButtons(QMessageBox.Ok)
+
+        display = msg.exec_()
+
 
 def show_window():
     import sys
