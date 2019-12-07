@@ -4,6 +4,9 @@ from user_interface.helpers import csv_handling
 from user_interface.helpers import connection
 from PyQt5.QtWidgets import QMessageBox
 
+#maybe removed
+from user_interface.views.screen_2 import Ui_screen_2
+
 class Ui_connection_window(object):
     # constructor method to set the text in csv file
     def __init__(self):
@@ -109,6 +112,13 @@ class Ui_connection_window(object):
             self.show_popup("Success", "Connection was successfully established.", QMessageBox.Information)
             
             # Here we will setup second window as well as hide this window
+            # may be removed later
+            self.window = QtWidgets.QMainWindow()
+            self.ui = Ui_screen_2()
+            self.ui.setupUi2(self.window)
+            self.window.show()
+            
+
 
         else:
             self.show_popup("Error", "Error in establishing connection. Please make sure you have entered the right credentials.", QMessageBox.Critical)
