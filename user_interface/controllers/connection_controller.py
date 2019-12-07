@@ -9,7 +9,7 @@ from user_interface.helpers import connection
 from PyQt5.QtWidgets import QMessageBox
 
 from user_interface.views.connection_window import Ui_connection_window
-from user_interface.views.screen_2 import Ui_screen_2
+from user_interface.views.customer_inquiry import Ui_customer_inquiry
 
 class connection_control(QMainWindow):
 
@@ -43,8 +43,8 @@ class connection_control(QMainWindow):
 			# Here we will setup second window as well as hide this window
 			# may be removed later
 			self.window = QtWidgets.QMainWindow()
-			self.ui = Ui_screen_2()
-			self.ui.setupUi2(self.window)
+			self.ui = Ui_customer_inquiry()
+			self.ui.setupUi(self.window)
 			self.window.show()
 
 		else:

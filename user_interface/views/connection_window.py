@@ -4,8 +4,6 @@ from user_interface.helpers import csv_handling
 from user_interface.helpers import connection
 from PyQt5.QtWidgets import QMessageBox
 
-#maybe removed
-from user_interface.views.screen_2 import Ui_screen_2
 
 class Ui_connection_window(object):
     def setupUi(self, connection_window):
