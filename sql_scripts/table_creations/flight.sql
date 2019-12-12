@@ -1,5 +1,5 @@
-#drop database if exists flight_service;
-#create database flight_service;
+# drop database if exists flight_service;
+# create database flight_service;
 use flight_service;
 
 create table flight(
@@ -10,10 +10,10 @@ create table flight(
 
 create table flight_component(
 	component_id int primary key,
+    time_start datetime,
+    time_end datetime,
     departure_loc int, foreign key (departure_loc) references location(location_id),
     destination_loc int, foreign key (destination_loc) references location(location_id),
-    time_start time,
-    time_end time,
     captain int, foreign key (captain) references pilot(employee_id),
     copilot int, foreign key (captain) references pilot(employee_id)
 );

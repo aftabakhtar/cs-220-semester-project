@@ -1736,24 +1736,24 @@
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="433" parent="300" name="departure_loc">
+    <column id="433" parent="300" name="time_start">
       <Position>2</Position>
-      <DataType>int(11)|0s</DataType>
+      <DataType>datetime|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="434" parent="300" name="destination_loc">
+    <column id="434" parent="300" name="time_end">
       <Position>3</Position>
+      <DataType>datetime|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="435" parent="300" name="departure_loc">
+      <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="435" parent="300" name="time_start">
-      <Position>4</Position>
-      <DataType>time|0s</DataType>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="436" parent="300" name="time_end">
+    <column id="436" parent="300" name="destination_loc">
       <Position>5</Position>
-      <DataType>time|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="437" parent="300" name="captain">
