@@ -48,7 +48,7 @@ class connection_controller(QMainWindow):
 			self.ui = Ui_customer_inquiry()
 			self.ui.setupUi(self.window)
 			self.window.show()
-			print(type(self))
+			# the logic for the customer panel would be handled here
 
 			# look at the constructor of customer_inquiry.py view
 

@@ -9,6 +9,8 @@ class Ui_customer_inquiry(object):
         self.ui = Ui_airline_panel()
         self.ui.setupUi(self.window)
         self.window.show()
+        # All the logic related to airline_panel would be handled here
+        self.ui.add_employee_button.clicked.connect(lambda: print("Hello"))
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("customer_panel")
