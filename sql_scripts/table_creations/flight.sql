@@ -8,7 +8,6 @@ create table flight(
     foreign key (plane_id) references plane(plane_id)
 );
 
-# Execute employee scripts before this as this requires pilot's employee ID.
 create table flight_component(
 	component_id int primary key,
     departure_loc int, foreign key (departure_loc) references location(location_id),
@@ -21,7 +20,7 @@ create table flight_component(
 
 create table connections(
 	flight_id int,
-    foreign key (flight_id) references flight(flight_id),
     component_id int,
+    foreign key (flight_id) references flight(flight_id),
     foreign key (component_id) references flight_component(component_id)
 );
