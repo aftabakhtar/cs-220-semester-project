@@ -13,10 +13,10 @@ from user_interface.views.customer_inquiry import Ui_customer_inquiry
 from user_interface.views.airline_panel import Ui_airline_panel
 from user_interface.views import airline_panel
 
-class connection_control(QMainWindow):
+class connection_controller(QMainWindow):
 
 	def __init__(self, parent=None):
-		super(connection_control, self).__init__(parent)
+		super(connection_controller, self).__init__(parent)
 		self.ui = Ui_connection_window()
 		self.ui.setupUi(self)
 		self.show()
@@ -48,6 +48,7 @@ class connection_control(QMainWindow):
 			self.ui = Ui_customer_inquiry()
 			self.ui.setupUi(self.window)
 			self.window.show()
+			print(type(self))
 
 			# look at the constructor of customer_inquiry.py view
 
@@ -72,10 +73,14 @@ class connection_control(QMainWindow):
 		self.ui.host_field.setText(self.credentials[2])
 		self.ui.database_field.setText(self.credentials[3])
 
+	# Method that may be used to pass the current window with ui
+	def get_self(self):
+		return self
+
 def show_window():
 	app = QtWidgets.QApplication(sys.argv)
 	connection_window = QtWidgets.QMainWindow()
-	ui = connection_control()
+	ui = connection_controller()
 
 	# custom method call to set the text according to csv
 	ui.set_credentials()
