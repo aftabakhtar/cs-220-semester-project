@@ -1497,7 +1497,7 @@
     </column>
     <column id="384" parent="293" name="seat_id">
       <Position>4</Position>
-      <DataType>varchar(2)|0s</DataType>
+      <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
     <column id="385" parent="293" name="billing_id">
@@ -2077,303 +2077,306 @@
     </foreign-key>
     <column id="503" parent="307" name="seat_id">
       <Position>1</Position>
-      <DataType>varchar(2)|0s</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="504" parent="307" name="plane_id">
-      <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="505" parent="307" name="seat_type">
+    <column id="504" parent="307" name="seat_name">
+      <Position>2</Position>
+      <DataType>char(4)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <column id="505" parent="307" name="plane_id">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="506" parent="307" name="plane_id">
+    <column id="506" parent="307" name="seat_type">
+      <Position>4</Position>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="507" parent="307" name="plane_id">
       <ColNames>plane_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="507" parent="307" name="seat_type">
+    <index id="508" parent="307" name="seat_type">
       <ColNames>seat_type</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="508" parent="307" name="PRIMARY">
+    <key id="509" parent="307" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
-      <ColNames>seat_id
-plane_id</ColNames>
+      <ColNames>seat_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="509" parent="307" name="seat_ibfk_1">
+    <foreign-key id="510" parent="307" name="seat_ibfk_1">
       <ColNames>plane_id</ColNames>
       <RefTableName>plane</RefTableName>
       <RefColNames>plane_id</RefColNames>
     </foreign-key>
-    <foreign-key id="510" parent="307" name="seat_ibfk_2">
+    <foreign-key id="511" parent="307" name="seat_ibfk_2">
       <ColNames>seat_type</ColNames>
       <RefTableName>seat_type</RefTableName>
       <RefColNames>seat_type_id</RefColNames>
     </foreign-key>
-    <column id="511" parent="308" name="seat_type_id">
+    <column id="512" parent="308" name="seat_type_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="512" parent="308" name="seat_type_name">
+    <column id="513" parent="308" name="seat_type_name">
       <Position>2</Position>
       <DataType>varchar(8)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="513" parent="308" name="PRIMARY">
+    <key id="514" parent="308" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>seat_type_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="514" parent="309" name="employee_id">
+    <column id="515" parent="309" name="employee_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="515" parent="309" name="job_role">
+    <column id="516" parent="309" name="job_role">
       <Position>2</Position>
       <DataType>varchar(32)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="516" parent="309" name="employee_id">
+    <index id="517" parent="309" name="employee_id">
       <ColNames>employee_id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="517" parent="309" name="employee_id">
+    <key id="518" parent="309" name="employee_id">
       <ColNames>employee_id</ColNames>
       <UnderlyingIndexName>employee_id</UnderlyingIndexName>
     </key>
-    <foreign-key id="518" parent="309" name="technician_ibfk_1">
+    <foreign-key id="519" parent="309" name="technician_ibfk_1">
       <ColNames>employee_id</ColNames>
       <RefTableName>employee</RefTableName>
       <RefColNames>employee_id</RefColNames>
     </foreign-key>
-    <column id="519" parent="310" name="vehicle_id">
+    <column id="520" parent="310" name="vehicle_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="520" parent="310" name="location_id">
+    <column id="521" parent="310" name="location_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="521" parent="310" name="bought">
+    <column id="522" parent="310" name="bought">
       <Position>3</Position>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="522" parent="310" name="location_id">
+    <index id="523" parent="310" name="location_id">
       <ColNames>location_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="523" parent="310" name="PRIMARY">
+    <key id="524" parent="310" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>vehicle_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="524" parent="310" name="vehicle_ibfk_1">
+    <foreign-key id="525" parent="310" name="vehicle_ibfk_1">
       <ColNames>location_id</ColNames>
       <RefTableName>location</RefTableName>
       <RefColNames>location_id</RefColNames>
     </foreign-key>
-    <column id="525" parent="311" name="s_ssn">
+    <column id="526" parent="311" name="s_ssn">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="526" parent="311" name="start_date">
+    <column id="527" parent="311" name="start_date">
       <Position>2</Position>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="527" parent="311" name="end_data">
+    <column id="528" parent="311" name="end_data">
       <Position>3</Position>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="528" parent="311" name="c_id">
+    <column id="529" parent="311" name="c_id">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="529" parent="311" name="d_id">
+    <column id="530" parent="311" name="d_id">
       <Position>5</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="530" parent="311" name="c_id">
+    <index id="531" parent="311" name="c_id">
       <ColNames>c_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="531" parent="311" name="d_id">
+    <index id="532" parent="311" name="d_id">
       <ColNames>d_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="532" parent="311" name="PRIMARY">
+    <key id="533" parent="311" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>s_ssn</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="533" parent="311" name="attendance_ibfk_3">
+    <foreign-key id="534" parent="311" name="attendance_ibfk_3">
       <ColNames>s_ssn</ColNames>
       <RefTableName>student</RefTableName>
       <RefColNames>s_ssn</RefColNames>
     </foreign-key>
-    <foreign-key id="534" parent="311" name="attendance_ibfk_1">
+    <foreign-key id="535" parent="311" name="attendance_ibfk_1">
       <ColNames>c_id</ColNames>
       <RefTableName>college</RefTableName>
       <RefColNames>c_id</RefColNames>
     </foreign-key>
-    <foreign-key id="535" parent="311" name="attendance_ibfk_2">
+    <foreign-key id="536" parent="311" name="attendance_ibfk_2">
       <ColNames>d_id</ColNames>
       <RefTableName>degree</RefTableName>
       <RefColNames>d_id</RefColNames>
     </foreign-key>
-    <column id="536" parent="312" name="c_id">
+    <column id="537" parent="312" name="c_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="537" parent="312" name="c_name">
+    <column id="538" parent="312" name="c_name">
       <Position>2</Position>
       <DataType>varchar(32)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="538" parent="312" name="PRIMARY">
+    <key id="539" parent="312" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>c_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="539" parent="313" name="d_id">
+    <column id="540" parent="313" name="d_id">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="540" parent="313" name="d_name">
+    <column id="541" parent="313" name="d_name">
       <Position>2</Position>
       <DataType>varchar(32)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="541" parent="313" name="PRIMARY">
+    <key id="542" parent="313" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>d_id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="542" parent="314" name="s_ssn">
+    <column id="543" parent="314" name="s_ssn">
       <Position>1</Position>
       <DataType>int(11)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="543" parent="314" name="PRIMARY">
+    <key id="544" parent="314" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>s_ssn</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="544" parent="315" name="date">
+    <column id="545" parent="315" name="date">
       <Position>1</Position>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="545" parent="315" name="d_id">
+    <column id="546" parent="315" name="d_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="546" parent="315" name="s_ssn">
+    <column id="547" parent="315" name="s_ssn">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="547" parent="315" name="d_id">
+    <index id="548" parent="315" name="d_id">
       <ColNames>d_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="548" parent="315" name="s_ssn">
+    <index id="549" parent="315" name="s_ssn">
       <ColNames>s_ssn</ColNames>
       <Type>btree</Type>
     </index>
-    <foreign-key id="549" parent="315" name="student_degree_ibfk_1">
+    <foreign-key id="550" parent="315" name="student_degree_ibfk_1">
       <ColNames>d_id</ColNames>
       <RefTableName>degree</RefTableName>
       <RefColNames>d_id</RefColNames>
     </foreign-key>
-    <foreign-key id="550" parent="315" name="student_degree_ibfk_2">
+    <foreign-key id="551" parent="315" name="student_degree_ibfk_2">
       <ColNames>s_ssn</ColNames>
       <RefTableName>student</RefTableName>
       <RefColNames>s_ssn</RefColNames>
     </foreign-key>
-    <column id="551" parent="316" name="grade">
+    <column id="552" parent="316" name="grade">
       <Position>1</Position>
       <DataType>char(1)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="552" parent="316" name="c_id">
+    <column id="553" parent="316" name="c_id">
       <Position>2</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="553" parent="316" name="d_id">
+    <column id="554" parent="316" name="d_id">
       <Position>3</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="554" parent="316" name="semester">
+    <column id="555" parent="316" name="semester">
       <Position>4</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="555" parent="316" name="year">
+    <column id="556" parent="316" name="year">
       <Position>5</Position>
       <DataType>year(4)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="556" parent="316" name="s_ssn">
+    <column id="557" parent="316" name="s_ssn">
       <Position>6</Position>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="557" parent="316" name="course_name">
+    <column id="558" parent="316" name="course_name">
       <Position>7</Position>
       <DataType>varchar(32)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="558" parent="316" name="c_id">
+    <index id="559" parent="316" name="c_id">
       <ColNames>c_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="559" parent="316" name="d_id">
+    <index id="560" parent="316" name="d_id">
       <ColNames>d_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="560" parent="316" name="s_ssn">
+    <index id="561" parent="316" name="s_ssn">
       <ColNames>s_ssn</ColNames>
       <Type>btree</Type>
     </index>
-    <foreign-key id="561" parent="316" name="transcript_ibfk_1">
+    <foreign-key id="562" parent="316" name="transcript_ibfk_1">
       <ColNames>c_id</ColNames>
       <RefTableName>college</RefTableName>
       <RefColNames>c_id</RefColNames>
     </foreign-key>
-    <foreign-key id="562" parent="316" name="transcript_ibfk_2">
+    <foreign-key id="563" parent="316" name="transcript_ibfk_2">
       <ColNames>d_id</ColNames>
       <RefTableName>degree</RefTableName>
       <RefColNames>d_id</RefColNames>
     </foreign-key>
-    <foreign-key id="563" parent="316" name="transcript_ibfk_3">
+    <foreign-key id="564" parent="316" name="transcript_ibfk_3">
       <ColNames>s_ssn</ColNames>
       <RefTableName>student</RefTableName>
       <RefColNames>s_ssn</RefColNames>

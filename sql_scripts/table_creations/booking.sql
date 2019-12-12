@@ -8,12 +8,13 @@ create table seat_type(
 );
 
 create table seat(
-	seat_id varchar(2),
+    seat_id int,
+	seat_name char(4),
     plane_id int,
     seat_type int,
     foreign key (plane_id) references plane(plane_id),
     foreign key (seat_type) references seat_type(seat_type_id),
-	primary key (seat_id, plane_id)
+	primary key (seat_id)
 );
 
 create table customer(
@@ -37,10 +38,12 @@ create table booking(
 	booking_id int primary key,
     flight_id int,
     customer_id int,
-    seat_id varchar(2),
+    seat_id int,
     billing_id int,
     foreign key (flight_id) references flight(flight_id),
     foreign key (customer_id) references customer(customer_id),
     foreign key (seat_id) references seat(seat_id),
     foreign key (billing_id) references billing(billing_id)
 );
+
+drop table booking;
