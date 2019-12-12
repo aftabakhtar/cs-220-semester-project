@@ -1690,7 +1690,7 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="424" parent="298" name="location_id">
+    <index id="424" parent="298" name="employee_ibfk_1">
       <ColNames>location_id</ColNames>
       <Type>btree</Type>
     </index>
@@ -1701,8 +1701,9 @@
     </key>
     <foreign-key id="426" parent="298" name="employee_ibfk_1">
       <ColNames>location_id</ColNames>
-      <RefTableName>employee</RefTableName>
-      <RefColNames>employee_id</RefColNames>
+      <RefTableName>location</RefTableName>
+      <RefColNames>location_id</RefColNames>
+      <OnDelete>cascade</OnDelete>
     </foreign-key>
     <column id="427" parent="299" name="flight_id">
       <Position>1</Position>

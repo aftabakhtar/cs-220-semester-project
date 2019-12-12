@@ -10,7 +10,7 @@ create table employee(
     l_name varchar(32),
     age int,
     salary int,
-    foreign key (location_id) references employee(employee_id)
+    foreign key (location_id) references location(location_id)
 );
 
 create table pilot(
