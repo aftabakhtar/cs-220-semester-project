@@ -1,10 +1,17 @@
 # customer first window
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from user_interface.views.airline_panel import Ui_airline_panel
 
 class Ui_customer_inquiry(object):
+    def __init__(self, parent=None):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_airline_panel()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
+        MainWindow.setObjectName("customer_panel")
         MainWindow.resize(606, 360)
         MainWindow.setMinimumSize(QtCore.QSize(606, 360))
         MainWindow.setMaximumSize(QtCore.QSize(606, 360))
@@ -94,7 +101,7 @@ class Ui_customer_inquiry(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("customer_panel", "Customer Panel"))
         self.label.setText(_translate("MainWindow", "Departure Airport"))
         self.label_2.setText(_translate("MainWindow", "Arrival Airport"))
         self.label_3.setText(_translate("MainWindow", "Date"))
@@ -118,4 +125,3 @@ class Ui_customer_inquiry(object):
 #     ui.setupUi(MainWindow)
 #     MainWindow.show()
 #     sys.exit(app.exec_())
-

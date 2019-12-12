@@ -10,6 +10,8 @@ from PyQt5.QtWidgets import QMessageBox
 
 from user_interface.views.connection_window import Ui_connection_window
 from user_interface.views.customer_inquiry import Ui_customer_inquiry
+from user_interface.views.airline_panel import Ui_airline_panel
+from user_interface.views import airline_panel
 
 class connection_control(QMainWindow):
 
@@ -46,6 +48,8 @@ class connection_control(QMainWindow):
 			self.ui = Ui_customer_inquiry()
 			self.ui.setupUi(self.window)
 			self.window.show()
+
+			# look at the constructor of customer_inquiry.py view
 
 		else:
 			self.show_popup("Error", "Error in establishing connection. Please make sure you have entered the right credentials.", QMessageBox.Critical)

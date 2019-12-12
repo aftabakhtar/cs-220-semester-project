@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>671</width>
+    <height>525</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Airline Panel</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>651</width>
+      <height>481</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>3</number>
+    </property>
+    <widget class="QWidget" name="dashboard_tab">
+     <attribute name="title">
+      <string>Dashboard</string>
+     </attribute>
+     <widget class="QTableWidget" name="dash_flight_table">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>611</width>
+        <height>211</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>270</y>
+        <width>101</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Finances</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="dash_finances_label">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>270</y>
+        <width>81</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>$$$$</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>310</y>
+        <width>101</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Employees</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="dash_employee_label">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>310</y>
+        <width>81</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>$$$$</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="dash_fleet_label">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>270</y>
+        <width>81</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>$$$$</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>270</y>
+        <width>101</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Fleet Size</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="dash_planes_label">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>310</y>
+        <width>81</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>$$$$</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>310</y>
+        <width>101</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Planes</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>350</y>
+        <width>101</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Busses</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="dash_busses_label">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>350</y>
+        <width>81</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>$$$$</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>350</y>
+        <width>101</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Active Routes</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="dash_activeR_label">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>350</y>
+        <width>81</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>$$$$</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>390</y>
+        <width>141</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Passenger Served</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="dash_passenger_label">
+      <property name="geometry">
+       <rect>
+        <x>190</x>
+        <y>390</y>
+        <width>81</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>$$$$</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_15">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>390</y>
+        <width>101</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Total Flights</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="dash_flights_label">
+      <property name="geometry">
+       <rect>
+        <x>530</x>
+        <y>390</y>
+        <width>81</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>$$$$</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>91</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Flights</string>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="fleet_tab">
+     <attribute name="title">
+      <string>Fleet</string>
+     </attribute>
+     <widget class="QTableWidget" name="fleet_table">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>611</width>
+        <height>381</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="schedule_maint_button">
+      <property name="geometry">
+       <rect>
+        <x>220</x>
+        <y>410</y>
+        <width>141</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Schedule Maintenance</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="add_fleet_button">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>410</y>
+        <width>80</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Add</string>
+      </property>
+     </widget>
+     <widget class="QDateTimeEdit" name="fleet_date_time">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>410</y>
+        <width>194</width>
+        <height>26</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="maintenance_tab">
+     <attribute name="title">
+      <string>Maintenance</string>
+     </attribute>
+     <widget class="QTableWidget" name="maintenance_table">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>611</width>
+        <height>381</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="employee_tab">
+     <attribute name="title">
+      <string>Employees</string>
+     </attribute>
+     <widget class="QTableWidget" name="employee_table">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>611</width>
+        <height>381</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="add_employee_button">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>410</y>
+        <width>80</width>
+        <height>25</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Add</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>671</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
