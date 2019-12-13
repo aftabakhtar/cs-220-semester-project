@@ -2,6 +2,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from user_interface.views.airline_panel import Ui_airline_panel
+from user_interface.controllers import connection_controller
+from user_interface.helpers import connection
 
 class Ui_customer_inquiry(object):
     def __init__(self, parent=None):
@@ -10,6 +12,7 @@ class Ui_customer_inquiry(object):
         self.ui.setupUi(self.window)
         self.window.show()
         # All the logic related to airline_panel would be handled here
+        connection.exec_query(connection.conn, "test")
         self.ui.add_employee_button.clicked.connect(lambda: print("Hello"))
 
     def setupUi(self, MainWindow):
