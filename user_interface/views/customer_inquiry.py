@@ -12,7 +12,8 @@ class Ui_customer_inquiry(object):
         self.ui.setupUi(self.window)
         self.window.show()
         # All the logic related to airline_panel would be handled here
-        connection.exec_query(connection.conn, "test")
+        # connection.exec_query("test")
+        # self.ui.tabWidget.currentChanged(0)
         self.ui.add_employee_button.clicked.connect(lambda: print("Hello"))
 
     def setupUi(self, MainWindow):

@@ -18,9 +18,13 @@ def connect(host, user, passwd, db):
 
 # method to execute queries and return results
 def exec_query(query):
-	conn.query(query)
-	result = conn.store_result()
-	return result
+	cur = conn.cursor()
+	cur.execute(query)
+	# result = conn.store_result()
+	return cur
+
+def commit():
+	conn.commit()
 
 def close_connection():
 	global conn

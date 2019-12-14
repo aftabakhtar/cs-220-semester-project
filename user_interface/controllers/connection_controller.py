@@ -1,6 +1,7 @@
 # logic for controllig connection window
 
 # imports
+import random
 import sys
 from PyQt5.QtWidgets import QMainWindow, QApplication, QDialog
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -48,8 +49,20 @@ class connection_controller(QMainWindow):
 			self.ui = Ui_customer_inquiry()
 			self.ui.setupUi(self.window)
 			self.window.show()
-			# the logic for the customer panel would be handled here
 
+			# the logic for the customer panel would be handled here
+			# starting logic building for customer panel
+			airport_codes = connection.exec_query("SELECT airport_code FROM location")
+			codes = [item[0] for item in airport_codes.fetchall()]
+
+			# populating combo boxes
+			for code in codes:
+				self.ui.arrival_box.addItem(code)
+				self.ui.departure_box.addItem(code)
+			self.ui.arrival_box.setCurrentIndex(1)
+
+			self.ui.book_pushButton.clicked.connect(lambda: self.book_flight())
+			date = self.ui.getPrice_button.clicked.connect(lambda: self.get_price())
 			# look at the constructor of customer_inquiry.py view
 
 		else:
@@ -72,6 +85,22 @@ class connection_controller(QMainWindow):
 		self.ui.password_field.setText(self.credentials[1])
 		self.ui.host_field.setText(self.credentials[2])
 		self.ui.database_field.setText(self.credentials[3])
+
+	def book_flight(self):
+		cur = connection.exec_query("SELECT plane_id from plane")
+		planes = [item[0] for item in cur.fetchall()]
+		cur = connection.exec_query("SELECT flight_id from flight")
+		flights = [item[0] for item in cur.fetchall()]
+		flight = max(flights) + 1
+		plane = random.choice(planes)
+		query = "INSERT INTO flight VALUES (" + str(flight) + ", " + str(plane) + ")"
+		print(query)
+		cur = connection.exec_query(query)
+		connection.commit()
+
+	def get_price(self):
+		text = self.ui.calendar_widget.selectedDate()
+		print(text.toString())
 
 	# Method that may be used to pass the current window with ui
 	def get_self(self):
