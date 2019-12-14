@@ -31,7 +31,19 @@ class Ui_customer_inquiry(object):
                 # print(row, col, col_data)
                 self.ui.dash_flight_table.setItem(row, col, QtWidgets.QTableWidgetItem(str(col_data)))
 
+        cursor = connection.exec_query("(SELECT * FROM vehicle LEFT JOIN plane USING (vehicle_id) LEFT JOIN bus using (vehicle_id))")
+        result = cursor.fetchall()
+        self.ui.fleet_table.setRowCount(0)
+        self.ui.fleet_table.setColumnCount(7)
+        self.ui.fleet_table.setHorizontalHeaderLabels(['vehicle_id', 'location_id', 'bought', 'plane_id', 'model', 'bus_id', 'model'])
+        for row, row_data in enumerate(result):
+            self.ui.fleet_table.insertRow(row)
+            for col, col_data in enumerate(row_data):
+                # print(row, col, col_data)
+                self.ui.fleet_table.setItem(row, col, QtWidgets.QTableWidgetItem(str(col_data)))
+
         self.set_dash_status()
+
 
     def set_dash_status(self):
         cursor = connection.exec_query("SELECT SUM(amount) FROM billing")
@@ -42,7 +54,31 @@ class Ui_customer_inquiry(object):
         employees = cursor.fetchone()[0]
         self.ui.dash_employee_label.setText(str(employees))
 
-        
+        cursor = connection.exec_query('SELECT count(*) FROM location')
+        routes = cursor.fetchone()[0]
+        self.ui.dash_activeR_label.setText(str(routes))
+
+        cursor = connection.exec_query('SELECT count(*) FROM customer')
+        passengers = cursor.fetchone()[0]
+        self.ui.dash_passenger_label.setText(str(passengers))
+
+        cursor = connection.exec_query('SELECT count(*) FROM vehicle')
+        vehicles = cursor.fetchone()[0]
+        self.ui.dash_fleet_label.setText(str(vehicles))
+
+        cursor = connection.exec_query('SELECT count(*) FROM plane')
+        planes = cursor.fetchone()[0]
+        self.ui.dash_planes_label.setText(str(planes))
+
+        cursor = connection.exec_query('SELECT count(*) FROM bus')
+        busses = cursor.fetchone()[0]
+        self.ui.dash_busses_label.setText(str(busses))
+
+        cursor = connection.exec_query('SELECT count(*) FROM flight')
+        flights = cursor.fetchone()[0]
+        self.ui.dash_flights_label.setText(str(flights))
+
+
 
 
 
