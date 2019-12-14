@@ -8,6 +8,7 @@ from user_interface.helpers import connection
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QInputDialog, QLineEdit
 from user_interface.views.add_fleet_dialog import Ui_add_fleet
+from user_interface.views.add_employee_dialog import Ui_add_employee
 import random
 
 class Ui_customer_inquiry(object):
@@ -23,7 +24,7 @@ class Ui_customer_inquiry(object):
         self.setup_tables()
 
         self.ui.fleet_date_time.setDate(QDate.currentDate())
-        self.ui.add_employee_button.clicked.connect(lambda: print("Hello"))
+        self.ui.add_employee_button.clicked.connect(lambda: self.add_employee())
         self.ui.schedule_maint_button.clicked.connect(lambda: self.schedule_maintenance())
         self.ui.add_fleet_button.clicked.connect(lambda: self.add_fleet())
 
@@ -83,28 +84,75 @@ class Ui_customer_inquiry(object):
 
             model = ui.input.text()
             model = "'" + model + "'"
+            # print(model)
 
-            query1 = "INSERT INTO vehicle VALUES (" + str(vehicle_id) + ", " + str(location_id) + ", "
-            query2 = "'" +  str(date[0]) + "'" + ")"
+            if model is '':
+                query1 = "INSERT INTO vehicle VALUES (" + str(vehicle_id) + ", " + str(location_id) + ", "
+                query2 = "'" +  str(date[0]) + "'" + ")"
+                query = query1 + query2
+                r = connection.exec_query(query)
+                connection.commit()
+
+                id = ui.buttonGroup.checkedId()
+                if id is -2:
+                    # inserting for plane
+                    query1 = "INSERT INTO plane VALUES (" + str(vehicle_id) + ", " + str(plane_id) + ", "
+                    query2 = str(model) +")"
+                    query = query1 + query2
+                    r = connection.exec_query(query)
+                    connection.commit()
+                else:
+                    query1 = "INSERT INTO bus VALUES (" + str(vehicle_id) + ", " + str(bus_id) + ", "
+                    query2 = str(model) +")"
+                    query = query1 + query2
+                    r = connection.exec_query(query)
+                    connection.commit()
+            else:
+                self.show_popup("Error", "Make sure that you have entered every field", QMessageBox.Critical)
+
+    def add_employee(self):
+        add_employee_win = QtWidgets.QDialog()
+        ui = Ui_add_employee()
+        ui.setupUi(add_employee_win)
+        result = add_employee_win.exec_()
+        if result is 1:
+            # collecting information
+            f_name = ui.f_name.text()
+            m_init = ui.m_init.text()
+            l_name = ui.l_name.text()
+            age = ui.lineEdit_4.text()
+
+            cursor = connection.exec_query("SELECT MAX(employee_id) FROM employee")
+            employee_id = cursor.fetchone()[0]
+            employee_id = employee_id + 1
+            cursor = connection.exec_query("SELECT location_id FROM location")
+            location_id = [item[0] for item in cursor.fetchall()]
+            location_id = random.choice(location_id)
+            salary = random.randint(10000, 20000)
+            query1 = "INSERT INTO employee VALUES (" + str(employee_id) + ", " + str(location_id) + ", "
+            query2 = "'" + str(f_name) + "', " + "'" + str(m_init) + "', " + "'" + str(l_name) + "', " + str(age) + ", " + str(salary) + ")"
             query = query1 + query2
-            r = connection.exec_query(query)
+            cursor = connection.exec_query(query)
             connection.commit()
+            hours = random.randint(0, 1000)
 
             id = ui.buttonGroup.checkedId()
             if id is -2:
-                # inserting for plane
-                query1 = "INSERT INTO plane VALUES (" + str(vehicle_id) + ", " + str(plane_id) + ", "
-                query2 = str(model) +")"
-                query = query1 + query2
-                r = connection.exec_query(query)
-                connection.commit()
-            else:
-                query1 = "INSERT INTO bus VALUES (" + str(vehicle_id) + ", " + str(bus_id) + ", "
-                query2 = str(model) +")"
-                query = query1 + query2
-                r = connection.exec_query(query)
+                query = "INSERT INTO pilot VALUES (" + str(employee_id) + ", " + str(hours) + ")"
+                cursor = connection.exec_query(query)
                 connection.commit()
 
+            elif id is -3:
+                query = "INSERT INTO cabin_crew VALUES (" + str(employee_id) + ", " + str(hours) + ")"
+                cursor = connection.exec_query(query)
+                connection.commit()
+
+            else:
+                job_role = ['mechanic', 'electrician']
+                job_role = random.choice(job_role)
+                query = "INSERT INTO technician VALUES (" + str(employee_id) + ", '" + str(job_role) + "'" + ")"
+                cursor = connection.exec_query(query)
+                connection.commit()
 
     # populating tables
     def setup_tables(self):
@@ -161,7 +209,7 @@ class Ui_customer_inquiry(object):
         self.set_dash_status()
 
         # constantly looking for new addition to database
-        # QtCore.QTimer.singleShot(5000, self.setup_tables)
+        QtCore.QTimer.singleShot(5000, self.setup_tables)
 
 
     def set_dash_status(self):
