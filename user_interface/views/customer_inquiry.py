@@ -7,6 +7,7 @@ from user_interface.controllers import connection_controller
 from user_interface.helpers import connection
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtWidgets import QInputDialog, QLineEdit
+from user_interface.views.add_fleet_dialog import Ui_add_fleet
 import random
 
 class Ui_customer_inquiry(object):
@@ -58,8 +59,51 @@ class Ui_customer_inquiry(object):
 
     # handling add fleet button
     def add_fleet(self):
-        items = ['Plane', 'Bus']
-        text, ok = QInputDialog().getText(self, "QInputDialog().getText()", "User name:", QLineEdit.Normal)
+        add_fleet_win = QtWidgets.QDialog()
+        ui = Ui_add_fleet()
+        ui.setupUi(add_fleet_win)
+        result = add_fleet_win.exec_()
+        if result is 1:
+            # entry in vehicle first
+            cursor = connection.exec_query("SELECT MAX(vehicle_id) FROM vehicle")
+            vehicle_id = cursor.fetchone()[0]
+            vehicle_id = vehicle_id + 1
+            cursor = connection.exec_query("SELECT location_id FROM location")
+            location_id = [item[0] for item in cursor.fetchall()]
+            location_id = random.choice(location_id)
+            date = QDate.currentDate().toString(self.ui.fleet_date_time.displayFormat())
+            date = str.split(date)
+            cursor = connection.exec_query("SELECT MAX(plane_id) FROM plane")
+            plane_id = cursor.fetchone()[0]
+            plane_id = plane_id + 1
+
+            cursor = connection.exec_query("SELECT MAX(bus_id) FROM bus")
+            bus_id = cursor.fetchone()[0]
+            bus_id = bus_id + 1
+
+            model = ui.input.text()
+            model = "'" + model + "'"
+
+            query1 = "INSERT INTO vehicle VALUES (" + str(vehicle_id) + ", " + str(location_id) + ", "
+            query2 = "'" +  str(date[0]) + "'" + ")"
+            query = query1 + query2
+            r = connection.exec_query(query)
+            connection.commit()
+
+            id = ui.buttonGroup.checkedId()
+            if id is -2:
+                # inserting for plane
+                query1 = "INSERT INTO plane VALUES (" + str(vehicle_id) + ", " + str(plane_id) + ", "
+                query2 = str(model) +")"
+                query = query1 + query2
+                r = connection.exec_query(query)
+                connection.commit()
+            else:
+                query1 = "INSERT INTO bus VALUES (" + str(vehicle_id) + ", " + str(bus_id) + ", "
+                query2 = str(model) +")"
+                query = query1 + query2
+                r = connection.exec_query(query)
+                connection.commit()
 
 
     # populating tables
