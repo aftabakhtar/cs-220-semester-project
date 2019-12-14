@@ -62,7 +62,7 @@ class connection_controller(QMainWindow):
 			self.ui.arrival_box.setCurrentIndex(1)
 
 			self.ui.book_pushButton.clicked.connect(lambda: self.book_flight())
-			date = self.ui.getPrice_button.clicked.connect(lambda: self.get_price())
+			date = self.ui.getPrice_button.clicked.connect(lambda: self.get_price("Price"))
 			# look at the constructor of customer_inquiry.py view
 
 		else:
@@ -87,6 +87,9 @@ class connection_controller(QMainWindow):
 		self.ui.database_field.setText(self.credentials[3])
 
 	def book_flight(self):
+		# first displaying get_price inquiry
+		self.get_price("Flight Booked")
+
 		cur = connection.exec_query("SELECT plane_id from plane")
 		planes = [item[0] for item in cur.fetchall()]
 		cur = connection.exec_query("SELECT flight_id from flight")
@@ -98,9 +101,26 @@ class connection_controller(QMainWindow):
 		cur = connection.exec_query(query)
 		connection.commit()
 
-	def get_price(self):
-		text = self.ui.calendar_widget.selectedDate()
-		print(text.toString())
+	def get_price(self, title):
+		date = self.ui.calendar_widget.selectedDate().toString()
+		text1 = "Flight Date:  " + date + "\n" + "Departure:   " + self.ui.departure_box.currentText() + "\n"
+		text2 = "Arrival:         " + self.ui.arrival_box.currentText() + "\n" + "Passengers: "
+		text3 = self.ui.passenger_box.currentText() + "\n" + "Seat Type: "
+		radio_button = str(self.ui.buttonGroup.checkedId())
+
+		seat_type = ""
+		if radio_button is -2:
+			seat_type = "Economy Class"
+		elif radio_button is -3:
+			seat_type = "First Class"
+		else:
+			seat_type = "Business Class"
+
+		text3 = text3 + "   " + seat_type
+		text = text1 + text2 + text3
+
+		# now text is formated
+		self.show_popup(title, text, QMessageBox.Information)
 
 	# Method that may be used to pass the current window with ui
 	def get_self(self):
