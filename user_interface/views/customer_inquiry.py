@@ -4,8 +4,10 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from user_interface.views.airline_panel import Ui_airline_panel
 from user_interface.controllers import connection_controller
 from user_interface.helpers import connection
+from PyQt5.QtWidgets import QMessageBox
 
 class Ui_customer_inquiry(object):
+    cell_loc = None
     def __init__(self, parent=None):
         self.window = QtWidgets.QMainWindow()
         self.ui = Ui_airline_panel()
@@ -17,20 +19,29 @@ class Ui_customer_inquiry(object):
         self.setup_tables()
 
         self.ui.add_employee_button.clicked.connect(lambda: print("Hello"))
+        self.ui.schedule_maint_button.clicked.connect(lambda: self.schedule_maintenance())
+
+    def schedule_maintenance(self):
+        selected_item = self.ui.fleet_table.currentItem()
+        if selected_item is None:
+            self.show_popup('Error', 'Please select a vehicle_id first', QMessageBox.Critical)
+        else:
+            print(selected_item.text())
 
     def setup_tables(self):
-        cursor = connection.exec_query("SELECT * FROM flight")
+        cursor = connection.exec_query("SELECT * FROM flight JOIN plane USING (plane_id)")
         result = cursor.fetchall()
 
         self.ui.dash_flight_table.setRowCount(0)
-        self.ui.dash_flight_table.setColumnCount(2)
-        self.ui.dash_flight_table.setHorizontalHeaderLabels(['flight_id', 'plane_id'])
+        self.ui.dash_flight_table.setColumnCount(4)
+        self.ui.dash_flight_table.setHorizontalHeaderLabels(['flight_id', 'plane_id', 'vehicle_id', 'model'])
         for row, row_data in enumerate(result):
             self.ui.dash_flight_table.insertRow(row)
             for col, col_data in enumerate(row_data):
                 # print(row, col, col_data)
                 self.ui.dash_flight_table.setItem(row, col, QtWidgets.QTableWidgetItem(str(col_data)))
 
+        # populating fleet table
         cursor = connection.exec_query("(SELECT * FROM vehicle LEFT JOIN plane USING (vehicle_id) LEFT JOIN bus using (vehicle_id))")
         result = cursor.fetchall()
         self.ui.fleet_table.setRowCount(0)
@@ -42,7 +53,36 @@ class Ui_customer_inquiry(object):
                 # print(row, col, col_data)
                 self.ui.fleet_table.setItem(row, col, QtWidgets.QTableWidgetItem(str(col_data)))
 
+        # populating maintenance table
+        cursor = connection.exec_query("SELECT * FROM maintenance")
+        result = cursor.fetchall()
+        self.ui.maintenance_table.setRowCount(0)
+        self.ui.maintenance_table.setColumnCount(7)
+        self.ui.maintenance_table.setHorizontalHeaderLabels(['maintenace_id', 'vehicle_id', 'cost', 'date', 'time', 'location', 'signed_of_by'])
+        for row, row_data in enumerate(result):
+            self.ui.maintenance_table.insertRow(row)
+            for col, col_data in enumerate(row_data):
+                # print(row, col, col_data)
+                self.ui.maintenance_table.setItem(row, col, QtWidgets.QTableWidgetItem(str(col_data)))
+
+        # populating employee table
+        cursor = connection.exec_query("SELECT * FROM employee")
+        result = cursor.fetchall()
+        self.ui.employee_table.setRowCount(0)
+        self.ui.employee_table.setColumnCount(7)
+        self.ui.employee_table.setHorizontalHeaderLabels(['employee_id', 'location_id', 'f_name', 'm_init', 'l_name', 'age', 'salary'])
+        for row, row_data in enumerate(result):
+            self.ui.employee_table.insertRow(row)
+            for col, col_data in enumerate(row_data):
+                # print(row, col, col_data)
+                self.ui.employee_table.setItem(row, col, QtWidgets.QTableWidgetItem(str(col_data)))
+
+
+        # populating dashboard
         self.set_dash_status()
+
+        # constantly looking for new addition to database
+        # QtCore.QTimer.singleShot(5000, self.setup_tables)
 
 
     def set_dash_status(self):
@@ -188,6 +228,14 @@ class Ui_customer_inquiry(object):
         self.book_pushButton.setText(_translate("MainWindow", "Book Flight"))
         self.getPrice_button.setText(_translate("MainWindow", "Get Price"))
 
+    def show_popup(self, title, text, error_type):
+        msg = QMessageBox()
+        msg.setWindowTitle(title)
+        msg.setText(text)
+        msg.setIcon(error_type)
+        msg.setStandardButtons(QMessageBox.Ok)
+
+        display = msg.exec_()
 
 # if __name__ == "__main__":
 #     import sys
