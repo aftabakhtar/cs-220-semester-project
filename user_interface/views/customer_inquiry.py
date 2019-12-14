@@ -1,10 +1,13 @@
 # customer first window
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtCore import QDate, QTime, QDateTime, Qt
 from user_interface.views.airline_panel import Ui_airline_panel
 from user_interface.controllers import connection_controller
 from user_interface.helpers import connection
 from PyQt5.QtWidgets import QMessageBox
+from PyQt5.QtWidgets import QInputDialog, QLineEdit
+import random
 
 class Ui_customer_inquiry(object):
     cell_loc = None
@@ -18,16 +21,48 @@ class Ui_customer_inquiry(object):
         # self.ui.tabWidget.currentChanged(0)
         self.setup_tables()
 
+        self.ui.fleet_date_time.setDate(QDate.currentDate())
         self.ui.add_employee_button.clicked.connect(lambda: print("Hello"))
         self.ui.schedule_maint_button.clicked.connect(lambda: self.schedule_maintenance())
+        self.ui.add_fleet_button.clicked.connect(lambda: self.add_fleet())
 
+    # handling schedule_maintenance button
     def schedule_maintenance(self):
         selected_item = self.ui.fleet_table.currentItem()
         if selected_item is None:
             self.show_popup('Error', 'Please select a vehicle_id first', QMessageBox.Critical)
         else:
-            print(selected_item.text())
+            vehicle_id = selected_item.text()
+            cursor = connection.exec_query("SELECT location_id from vehicle WHERE vehicle_id = " + str(vehicle_id))
+            location = cursor.fetchone()[0]
+            cursor = connection.exec_query("SELECT max(maintenance_id) FROM maintenance")
+            maintenance_id = cursor.fetchone()[0]
+            if maintenance_id is None:
+                maintenance_id = 1
+            else:
+                maintenance_id = maintenance_id + 1
+            cost = random.randint(10000,50000)
+            date = self.ui.fleet_date_time.dateTime()
+            date = date.toString(self.ui.fleet_date_time.displayFormat())
+            date = str.split(date)
+            cursor = connection.exec_query("SELECT employee_id FROM technician")
+            signed_of_by = [item[0] for item in cursor.fetchall()]
+            signed_of_by = random.choice(signed_of_by)
 
+            # preparing query
+            query1 = "INSERT INTO maintenance VALUES (" + str(maintenance_id) + ", " + str(vehicle_id) + ", "
+            query2 = str(cost) + ", " + "'" + str(date[0]) + "'" + ", " + "'" + str(date[1]) + "'" +  ", " + str(location) + ", " + str(signed_of_by) + ")"
+            query = query1 + query2
+            cursor = connection.exec_query(query)
+            connection.commit()
+
+    # handling add fleet button
+    def add_fleet(self):
+        items = ['Plane', 'Bus']
+        text, ok = QInputDialog().getText(self, "QInputDialog().getText()", "User name:", QLineEdit.Normal)
+
+
+    # populating tables
     def setup_tables(self):
         cursor = connection.exec_query("SELECT * FROM flight JOIN plane USING (plane_id)")
         result = cursor.fetchall()
@@ -58,7 +93,7 @@ class Ui_customer_inquiry(object):
         result = cursor.fetchall()
         self.ui.maintenance_table.setRowCount(0)
         self.ui.maintenance_table.setColumnCount(7)
-        self.ui.maintenance_table.setHorizontalHeaderLabels(['maintenace_id', 'vehicle_id', 'cost', 'date', 'time', 'location', 'signed_of_by'])
+        self.ui.maintenance_table.setHorizontalHeaderLabels(['maintenance_id', 'vehicle_id', 'cost', 'date', 'time', 'location', 'signed_of_by'])
         for row, row_data in enumerate(result):
             self.ui.maintenance_table.insertRow(row)
             for col, col_data in enumerate(row_data):
