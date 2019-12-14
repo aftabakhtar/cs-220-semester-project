@@ -14,7 +14,37 @@ class Ui_customer_inquiry(object):
         # All the logic related to airline_panel would be handled here
         # connection.exec_query("test")
         # self.ui.tabWidget.currentChanged(0)
+        self.setup_tables()
+
         self.ui.add_employee_button.clicked.connect(lambda: print("Hello"))
+
+    def setup_tables(self):
+        cursor = connection.exec_query("SELECT * FROM flight")
+        result = cursor.fetchall()
+
+        self.ui.dash_flight_table.setRowCount(0)
+        self.ui.dash_flight_table.setColumnCount(2)
+        self.ui.dash_flight_table.setHorizontalHeaderLabels(['flight_id', 'plane_id'])
+        for row, row_data in enumerate(result):
+            self.ui.dash_flight_table.insertRow(row)
+            for col, col_data in enumerate(row_data):
+                # print(row, col, col_data)
+                self.ui.dash_flight_table.setItem(row, col, QtWidgets.QTableWidgetItem(str(col_data)))
+
+        self.set_dash_status()
+
+    def set_dash_status(self):
+        cursor = connection.exec_query("SELECT SUM(amount) FROM billing")
+        finances = cursor.fetchone()[0]
+        self.ui.dash_finances_label.setText("$" + str( finances))
+
+        cursor = connection.exec_query("SELECT COUNT(*) FROM employee")
+        employees = cursor.fetchone()[0]
+        self.ui.dash_employee_label.setText(str(employees))
+
+        
+
+
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("customer_panel")

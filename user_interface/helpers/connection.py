@@ -26,6 +26,9 @@ def exec_query(query):
 def commit():
 	conn.commit()
 
+# def get_connection():
+	# return conn
+
 def close_connection():
 	global conn
 	conn.close()
