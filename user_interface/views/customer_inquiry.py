@@ -83,10 +83,10 @@ class Ui_customer_inquiry(object):
             bus_id = bus_id + 1
 
             model = ui.input.text()
-            model = "'" + model + "'"
             # print(model)
 
-            if model is '':
+            if model:
+                model = "'" + model + "'"
                 query1 = "INSERT INTO vehicle VALUES (" + str(vehicle_id) + ", " + str(location_id) + ", "
                 query2 = "'" +  str(date[0]) + "'" + ")"
                 query = query1 + query2
@@ -161,7 +161,7 @@ class Ui_customer_inquiry(object):
 
         self.ui.dash_flight_table.setRowCount(0)
         self.ui.dash_flight_table.setColumnCount(4)
-        self.ui.dash_flight_table.setHorizontalHeaderLabels(['flight_id', 'plane_id', 'vehicle_id', 'model'])
+        self.ui.dash_flight_table.setHorizontalHeaderLabels(['plane_id', 'flight_id', 'vehicle_id', 'model'])
         for row, row_data in enumerate(result):
             self.ui.dash_flight_table.insertRow(row)
             for col, col_data in enumerate(row_data):

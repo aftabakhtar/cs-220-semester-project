@@ -106,7 +106,7 @@ class connection_controller(QMainWindow):
 		text1 = "Flight Date:  " + date + "\n" + "Departure:   " + self.ui.departure_box.currentText() + "\n"
 		text2 = "Arrival:         " + self.ui.arrival_box.currentText() + "\n" + "Passengers: "
 		text3 = self.ui.passenger_box.currentText() + "\n" + "Seat Type: "
-		radio_button = str(self.ui.buttonGroup.checkedId())
+		radio_button = self.ui.buttonGroup.checkedId()
 
 		seat_type = ""
 		if radio_button is -2:
